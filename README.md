@@ -5,6 +5,11 @@ Libreria que debe Installar
 ----- framer-motion -----
 npm i framer-motion
 
+
+npm install react-icons
+
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { AvatarDemo } from "../Avatar";
-import { DarkModb } from "../DarkMode";
 
 const Navbar = () => {
   const activeStyle = "underline underline-offset-4";
@@ -36,11 +35,8 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
-
         <ul className="flex items-center">
-          <li>
-            <DarkModb />
-          </li>
+          
           <li>
             <AvatarDemo />
           </li>
