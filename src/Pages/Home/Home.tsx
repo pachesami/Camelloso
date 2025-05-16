@@ -8,6 +8,7 @@ import { SiGooglemaps } from "react-icons/si";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { FaAddressBook, FaUserTie, FaBullhorn, FaCheck } from 'react-icons/fa';
 import Navbar from "@/Components/Navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const steps = [
     { number: 1, icon: <FaAddressBook />, title: 'Acceder a la interfaz de solicitud', description: 'Para comenzar, ingresa a la interfaz de solicitud de servicio en nuestra plataforma.', color: '#FFD700' },
@@ -24,11 +25,14 @@ const Home = () => {
         <Navbar variant="minimal" />
         <div className="w-full min-h-screen c home-bg relative overflow-hidden">
           {/* Imagen decorativa fija en la esquina derecha */}
+          <Link to="/Login">
           <img 
             src={Letras} 
             alt="Decoración Letras" 
-            className="hidden md:block fixed top-130 right-0 h-40 w-auto opacity-60 pointer-events-none z-50 select-none"
+            className="hidden md:block fixed top-130 right-0 h-40 w-auto opacity-60 z-50 select-none cursor-pointer"
+            style={{ pointerEvents: "auto" }}
           />
+        </Link>
           {/* Carrusel ocupa todo el ancho */}
           <div className="w-full bg-primary">
             <Carrusel />
