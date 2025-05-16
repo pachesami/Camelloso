@@ -29,7 +29,7 @@ const StepCard: React.FC<StepCardProps> = ({ number, icon, title, description, c
         {/* Texto */}
         <div className={`flex-grow px-6 py-6 ${isRightAligned ? 'text-right' : 'text-left'}`}>
           <h3 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h3>
-          <p className="text-gray-600 text-sm">{description}</p>
+          <p className="text-gray-600 text-md">{description}</p>
         </div>
       </div>
     );
