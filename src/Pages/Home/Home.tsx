@@ -9,6 +9,7 @@ import { FaPhoneVolume } from "react-icons/fa6";
 import { FaAddressBook, FaUserTie, FaBullhorn, FaCheck } from 'react-icons/fa';
 import Navbar from "@/Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const steps = [
     { number: 1, icon: <FaAddressBook />, title: 'Acceder a la interfaz de solicitud', description: 'Para comenzar, ingresa a la interfaz de solicitud de servicio en nuestra plataforma.', color: '#FFD700' },
@@ -48,21 +49,64 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="px-10 py-6 w-full space-y-8">
-            {steps.map((step, index) => (
-              <StepCard key={step.number} index={index} {...step} />
-            ))}
+          <div className="py-1 w-full  flex justify-center">
+            <div className="space-y-4w-full max-w-5xl">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: index * 0.2, duration: 0.5, type: "spring" }}
+                >
+                  <StepCard
+                    index={index}
+                    {...step}
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Sección: Cambiar datos personales */}
-          <div className="flex-col items-center justify -center min-h-screen bg-primary-light py-5">
-            <h1 className="text-4xl font-bold text-center text-primary mt-4 mb-2">
-              ¿Interesado en cambiar tus datos personales?
-            </h1>
-            <p className="text-lg text-center text-surface mt-2 mb-6">
-              ¡Aquí tienes el paso a paso detallado para que cambies tus datos personales!
-            </p>
-          </div>
+          <div className="relative flex-col items-center justify-center min-h-screen bg-primary-light py-5 bg-primary overflow-hidden">
+  {/* Curva decorativa superior */}
+  <svg
+    className="absolute top-0 left-0 w-full"
+    viewBox="0 0 1440 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ zIndex: 1 }}
+    preserveAspectRatio="none"
+  >
+    <path
+      d="M0,80 C480,160 960,0 1440,80 L1440,0 L0,0 Z"
+      fill="#f7f0ea"
+    />
+  </svg>
+  <div className="relative z-10">
+    <h1 className="text-4xl font-bold text-center text-primary mt-4 mb-2 text-black">
+      ¿Interesado en cambiar tus datos personales?
+    </h1>
+    <p className="text-lg text-center text-surface mt-2 mb-6 text-secondary">
+      ¡Aquí tienes el paso a paso detallado para que cambies tus datos personales!
+    </p>
+  </div>
+  {/* Curva decorativa inferior */}
+  <svg
+    className="absolute bottom-0 left-0 w-full rotate-180"
+    viewBox="0 0 1440 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ zIndex: 1 }}
+    preserveAspectRatio="none"
+  >
+    <path
+      d="M0,80 C480,160 960,0 1440,80 L1440,0 L0,0 Z"
+      fill="#f7f0ea"
+    />
+  </svg>
+</div>
 
           {/* Sección: Noticias */}
           <div className="flex-col items-center justify-center min-h-screen bg-surface py-5">
@@ -71,68 +115,62 @@ const Home = () => {
             </h1>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 w-full">
-              {/* Noticia 1 */}
-              <div className="bg-white p-6 rounded-2xl shadow-md text-center text-xl font-semibold transition-transform duration-300 transform hover:scale-105 border-2 border-primary">
-                <img
-                src={desempleo}
-                alt="Gráfico de tasa de desempleo"
-                className="w-full h-48 object-cover rounded-md"
-                />
-                <h1 className=" text-black subpixel-antialiased text-2xl font-bold  text-left underline capitalize">
-                <a
-                  href="https://periodicodelmeta.com/bajo-tasa-de-desocupacion-en-villavicencio-pero/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {[ // Agrupa tus noticias en un array para mapearlas
+                {
+                  img: desempleo,
+                  alt: "Gráfico de tasa de desempleo",
+                  title: "Bajo tasa de desempleo de desocupación en Villavicencio, pero ...",
+                  link: "https://periodicodelmeta.com/bajo-tasa-de-desocupacion-en-villavicencio-pero/",
+                  desc: "La alta tasa de informalidad y la brecha de desempleo que afecta más a las mujeres son fenómenos que deben atacarse para que no solo disminuya el desempleo en Villavicencio, sino que ese trabajo mejore la calidad de vida de las personas."
+                },
+                {
+                  img: villavicencio,
+                  alt: "Gráfico de tasa de desempleo en Medellín, Bucaramanga y Villavicencio",
+                  title: "Medellín, Bucaramanga y Villavicencio las que registraron menor tasa de desempleo",
+                  link: "https://www.larepublica.co/economia/medellin-bucaramanga-y-villavicencio-las-que-registraron-menor-tasa-de-desempleo-4051283",
+                  desc: "De acuerdo con el reporte del Departamento Administrativo Nacional de Estadísticas, Dane, las grandes ciudades que mostraron una menor tasa de desocupación fueron: Medellín (8,4%), Bucaramanga (8,7%), Villavicencio (9,5%)."
+                },
+                {
+                  img: desempleo,
+                  alt: "Gráfico de tasa de desempleo",
+                  title: "Villavicencio se mantiene entre las ciudades con menor desempleo en Colombia",
+                  link: "https://www.viveelmeta.com/villavicencio-se-mantiene-entre-las-ciudades-con-menor-desempleo-en-colombia-45438/",
+                  desc: "Según el Departamento Administrativo Nacional de Estadística (DANE), Villavicencio registró en febrero una tasa de desempleo del 8,8 %, ubicándose entre las más bajas, junto a Medellín (7,3 %) y Neiva (9,1 %)."
+                }
+              ].map((noticia, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: i * 0.2, duration: 0.6, type: "spring" }}
+                  whileHover={{
+                    scale: 1.04,
+                    boxShadow: "0 8px 32px 0 rgba(60,60,180,0.18)",
+                    y: -8,
+                  }}
+                  className="bg-white p-6 rounded-2xl shadow-lg text-center text-xl font-semibold border-2 border-primary transition-all duration-300 flex flex-col gap-3"
                 >
-                  Bajo tasa de desempleo de desocupación en Villavicencio, pero ...
-                </a>
-                </h1>
-                <p className="line-clamp-8 text-justify text-secondary">
-                La alta tasa de informalidad y la brecha de desempleo que afecta más a las mujeres son fenómenos que deben atacarse para que no solo disminuya el desempleo en Villavicencio, sino que ese trabajo mejore la calidad de vida de las personas.
-                </p>
-              </div>
-          
-              {/* Noticia 2 */}
-              <div className="bg-white p-6 rounded-2xl shadow-md text-center text-xl font-semibold transition-transform duration-300 transform hover:scale-105 border-2 border-primary">
-                <img
-                src={villavicencio}
-                alt="Gráfico de tasa de desempleo en Medellín, Bucaramanga y Villavicencio"
-                className="w-full h-48 object-cover rounded-md"
-                />
-                <h1 className="text-black  subpixel-antialiased text-2xl font-bold text-left underline capitalize">
-                <a
-                  href="https://www.larepublica.co/economia/medellin-bucaramanga-y-villavicencio-las-que-registraron-menor-tasa-de-desempleo-4051283"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Medellín, Bucaramanga y Villavicencio las que registraron menor tasa de desempleo
-                </a>
-                </h1>
-                <p className="line-clamp-8 text-justify text-secondary">
-                De acuerdo con el reporte del Departamento Administrativo Nacional de Estadísticas, Dane, las grandes ciudades que mostraron una menor tasa de desocupación fueron: Medellín (8,4%), Bucaramanga (8,7%), Villavicencio (9,5%).
-                </p>
-              </div>
-          
-              {/* Noticia 3 */}
-              <div className="bg-white p-6 rounded-2xl shadow-md text-center text-xl font-semibold transition-transform duration-300 transform hover:scale-105 border-2 border-primary">
-                <img
-                src={desempleo}
-                alt="Gráfico de tasa de desempleo"
-                className="w-full h-48 object-cover rounded-md"
-                />
-                <h1 className="text-black subpixel-antialiased text-2xl font-bold text-left underline capitalize">
-                <a
-                  href="https://www.viveelmeta.com/villavicencio-se-mantiene-entre-las-ciudades-con-menor-desempleo-en-colombia-45438/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Villavicencio se mantiene entre las ciudades con menor desempleo en Colombia
-                </a>
-                </h1>
-                <p className="line-clamp-8 text-justify text-secondary">
-                Según el Departamento Administrativo Nacional de Estadística (DANE), Villavicencio registró en febrero una tasa de desempleo del 8,8 %, ubicándose entre las más bajas, junto a Medellín (7,3 %) y Neiva (9,1 %).
-                </p>
-              </div>
+                  <img
+                    src={noticia.img}
+                    alt={noticia.alt}
+                    className="w-full h-44 object-cover rounded-md mb-2"
+                  />
+                  <h1 className="text-black text-lg font-bold text-left underline capitalize mb-1">
+                    <a
+                      href={noticia.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors"
+                    >
+                      {noticia.title}
+                    </a>
+                  </h1>
+                  <p className="line-clamp-6 text-justify text-secondary text-base font-normal">
+                    {noticia.desc}
+                  </p>
+                </motion.div>
+              ))}
               </div>
           </div>
 
