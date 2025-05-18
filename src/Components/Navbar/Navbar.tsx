@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { AvatarDemo } from "../Avatar";
+import { NavLink, useNavigate } from "react-router-dom";
+import UserMenu from "../UserMenu/UserMenu";
+import { FaBars } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
+import { AnimatePresence } from "framer-motion";
 
 interface NavbarProps {
   variant?: "minimal" | "full";
@@ -8,7 +10,14 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ variant = "full" }) => {
   const [show, setShow] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(window.scrollY);
+  const navigate = useNavigate();
+
+  // Simula datos de usuario
+  const user = {
+    name: "Pacheco",
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +34,11 @@ const Navbar: React.FC<NavbarProps> = ({ variant = "full" }) => {
   }, []);
 
   const activeStyle = "underline underline-offset-4";
+
+  const handleLogout = () => {
+    // Aquí puedes limpiar el estado de autenticación si lo tienes
+    navigate("/");
+  };
 
   return (
     <>
@@ -74,16 +88,31 @@ const Navbar: React.FC<NavbarProps> = ({ variant = "full" }) => {
                 </NavLink>
               </li>
             </ul>
-            <ul className="flex items-center">
-              <li>
-                <AvatarDemo />
-              </li>
-              <li className="text-foreground px-2">Pacheco</li>
-              <li className="font-extrabold px-1 text-2xl">
-              </li>
-              <li className="font-extrabold px-3 py border-1 border-black rounded-md text-2xl">
-              </li>
-            </ul>
+            {/* Menú hamburguesa y UserMenu */}
+            <div className="relative flex items-center ml-4">
+              <button
+                className="p-2 rounded-full hover:bg-gray-200"
+                onClick={() => setMenuOpen((prev) => !prev)}
+                aria-label="Abrir menú"
+              >
+                <FaBars size={28} />
+              </button>
+              <AnimatePresence>
+                {menuOpen && (
+                  <UserMenu
+                    user={user}
+                    onUpdateData={() => {
+                      setMenuOpen(false);
+                      navigate("/UpdateData");
+                    }}
+                    onLogout={() => {
+                      setMenuOpen(false);
+                      handleLogout();
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+            </div>
           </>
         )}
       </nav>

@@ -1,6 +1,6 @@
 import { useRoutes, BrowserRouter } from 'react-router-dom'
 import UpdateData from "../UpdateData";
-import RequestService from "../RequestService";
+import RequestService from "../RequestService/RequestService";
 import NotFound from "../NotFound";
 import Login from "../Login/Login";
 import Doubts from "../Doubts";
